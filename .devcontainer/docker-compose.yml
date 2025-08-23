@@ -1,0 +1,9 @@
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: vscode_devcontainer
+    volumes:
+      - ..:/workdir
+    tty: true

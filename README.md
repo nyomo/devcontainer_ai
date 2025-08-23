@@ -1,0 +1,3 @@
+# Visual Studio Code用Dev Containerのテンプレート
+
+自作のDockerfileとdocker-compose.ymlのdevcontainerを使いたい時用テンプレ
