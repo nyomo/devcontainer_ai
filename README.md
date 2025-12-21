@@ -1,3 +1,2 @@
-# Visual Studio Code用Dev Containerのテンプレート
+# codexをDockerの中に閉じ込めた状態で使いたい
 
-自作のDockerfileとdocker-compose.ymlのdevcontainerを使いたい時用テンプレ
