@@ -9,6 +9,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \ 
     sudo \ 
+    gpg \
     git \
     curl
 
@@ -30,5 +31,23 @@ RUN mkdir /home/appuser && \
     echo "%appgroup ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/appgroup && \
     mkdir /workdir 
 
+# install node.js v24
+# https://deb.nodesource.com/setup_24.x
+COPY ./nodesource-repo.gpg.key /tmp
+RUN mkdir -p /usr/share/keyrings && \
+    rm -f /usr/share/keyrings/nodesource.gpg && \
+    rm -f /etc/apt/sources.list.d/nodesource.list && \
+    cat /tmp/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list > /dev/null && \
+    apt update -y && \
+    apt-get install -y --no-install-recommends nodejs 
+RUN mkdir -p /opt/node_modules && \
+    chown -R appuser:appgroup /opt/node_modules
+
 USER appuser
+
+# node.js
+ENV PATH=/opt/node_modules/bin:${PATH}
+RUN npm config set prefix "/opt/node_modules"
+RUN npm install -g @openai/codex@latest
 
