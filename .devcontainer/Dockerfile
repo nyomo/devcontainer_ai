@@ -11,7 +11,8 @@ RUN apt-get install -y --no-install-recommends \
     sudo \ 
     gpg \
     git \
-    curl
+    curl \
+    python3.13-venv
 
 RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen ja_JP.UTF-8 && \
@@ -46,8 +47,16 @@ RUN mkdir -p /opt/node_modules && \
 
 USER appuser
 
+
 # node.js
 ENV PATH=/opt/node_modules/bin:${PATH}
 RUN npm config set prefix "/opt/node_modules"
 RUN npm install -g @openai/codex@latest
+RUN ln -s /workdir/.codex /home/appuser/
 
+# Python
+RUN mkdir /home/appuser/python3 && \
+    python3 -m venv /home/appuser/python3
+#COPY ../requirements.txt /home/appuser
+#RUN /home/appuser/python3/bin/pip install -r /home/appuser/requirements.txt
+ENV PATH=/home/appuser/python3/bin:${PATH}
