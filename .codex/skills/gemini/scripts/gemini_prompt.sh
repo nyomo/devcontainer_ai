@@ -30,12 +30,12 @@ if [ -n "$prompt" ]; then
   args+=("-p" "$prompt
 $append_instruction")
 else
-  args+=("-y -p" "$append_instruction")
+  args+=("-y" "-p" "$append_instruction")
 fi
 
-# Disable IDE integration to avoid connection errors.
-env GEMINI_CLI_HOME="${GEMINI_CLI_HOME:-/workdir}" \
-  -u GEMINI_CLI_IDE_SERVER_PORT \
+# Disable IDE integration to avoid connection errors or unexpected auth flows.
+env -u GEMINI_CLI_IDE_SERVER_PORT \
   -u GEMINI_CLI_IDE_WORKSPACE_PATH \
   -u GEMINI_CLI_IDE_AUTH_TOKEN \
+  GEMINI_CLI_HOME="${GEMINI_CLI_HOME:-/workdir}" \
   gemini "${args[@]}" < "$file"
