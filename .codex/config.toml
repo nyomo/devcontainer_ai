@@ -1,3 +1,4 @@
 [projects."/workdir"]
 trust_level = "trusted"
+web_search_request = "true"
 
