@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
     gpg \
     git \
     curl \
+    ripgrep \
     python3.13-venv
 
 RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen && \
