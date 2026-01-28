@@ -1,3 +1,5 @@
+sandbox_mode = "danger-full-access"
+
 [projects."/workdir"]
 trust_level = "trusted"
 web_search_request = "true"
