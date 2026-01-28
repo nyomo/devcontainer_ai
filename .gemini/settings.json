@@ -1,0 +1,14 @@
+{
+  "hasSeenIdeIntegrationNudge": true,
+  "ide": {
+    "enabled": false
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "network": {
+      "allow_all": true
+    }
+  }
+}
