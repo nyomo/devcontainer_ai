@@ -4,3 +4,4 @@ sessions/*
 log/*
 version.json
 tmp/
+models_cache.json
