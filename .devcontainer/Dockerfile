@@ -7,13 +7,13 @@ RUN apt-get install -y --no-install-recommends \
     locales \
     ca-certificates 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \ 
-    sudo \ 
+RUN apt-get install -y --no-install-recommends \
+    sudo  \
     gpg \
     git \
     curl \
     ripgrep \
-    python3.13-venv
+    python3.13-venv 
 
 RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen ja_JP.UTF-8 && \
@@ -45,6 +45,13 @@ RUN mkdir -p /usr/share/keyrings && \
     apt-get install -y --no-install-recommends nodejs 
 RUN mkdir -p /opt/node_modules && \
     chown -R appuser:appgroup /opt/node_modules
+
+# install mise (official apt repo)
+RUN install -dm 755 /etc/apt/keyrings && \
+    curl -fSs https://mise.jdx.dev/gpg-key.pub | tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null && \
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list > /dev/null && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends mise
 
 USER appuser
 
