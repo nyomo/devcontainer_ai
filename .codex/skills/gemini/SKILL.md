@@ -1,49 +1,44 @@
 ---
 name: gemini
-description: Run the Gemini CLI by piping a file into stdin with an optional -p prompt, and disable IDE companion integration to avoid connection errors. Use when users ask to send a local file as the prompt input for gemini, add extra prompt text, or reliably run gemini without VS Code companion extension.
+description: ローカルファイルを stdin で Gemini CLI に渡し、必要に応じて追加プロンプトを付けて実行する。IDE companion 連携を無効化して、IDEが使えない環境でも安定して実行できるようにする。
 ---
 
 # Gemini
 
 ## Overview
 
-Use gemini with file content over stdin and optional extra prompt text.
-Always disable IDE integration variables to avoid IDE companion connection errors.
-Set `GEMINI_CLI_HOME=/workdir` so gemini uses `/workdir/.gemini`.
+このスキルは、IDE companion 連携が使えない環境でも Gemini CLI を安定して動かすための手順です。
+ローカルファイルを stdin で渡し、必要に応じて追加プロンプトを付与して実行します。
+
+`GEMINI_CLI_HOME` は Gemini の設定保存先です。ここでは `<PROJECT_ROOT>` 配下の `.gemini` を使う想定で、
+`GEMINI_CLI_HOME=<PROJECT_ROOT>` を設定します。
+（このリポジトリでは `<PROJECT_ROOT>` は `/workdir` です）
 
 ## Quick Start
 
-Use the helper script:
+ヘルパースクリプトを使う方法:
 
 ```bash
-GEMINI_CLI_HOME=/workdir /workdir/.codex/skills/gemini/scripts/gemini_prompt.sh file.md "Summarize in Japanese"
+GEMINI_CLI_HOME=<PROJECT_ROOT> <PROJECT_ROOT>/.codex/skills/gemini/scripts/gemini_prompt.sh file.md "Summarize in Japanese"
 ```
 
-Or run the command directly:
+直接コマンドを実行する方法:
 
 ```bash
-env GEMINI_CLI_HOME=/workdir \
-  -u GEMINI_CLI_IDE_SERVER_PORT \
+env -u GEMINI_CLI_IDE_SERVER_PORT \
   -u GEMINI_CLI_IDE_WORKSPACE_PATH \
   -u GEMINI_CLI_IDE_AUTH_TOKEN \
+  GEMINI_CLI_HOME=<PROJECT_ROOT> \
   gemini -p "Summarize in Japanese" < file.md
 ```
 
-## Workflow
-
-1) Choose the input file to feed via stdin.
-2) Provide optional extra prompt text that will be passed with `-p`.
-3) Set `GEMINI_CLI_HOME=/workdir` so gemini reads `/workdir/.gemini`.
-4) Disable `GEMINI_CLI_IDE_*` so gemini does not try to connect to the IDE companion.
+補足: `env -u` は指定した環境変数を一時的に削除します。ここでは IDE companion 連携用の変数を無効化しています。
 
 ## Script Details
 
-Use `scripts/gemini_prompt.sh` for a simple, repeatable invocation pattern.
+`<PROJECT_ROOT>/.codex/skills/gemini/scripts/gemini_prompt.sh` は以下を行います。
 
-### Behavior
-
-- Read the file and pass it to gemini via stdin.
-- If extra prompt text is provided, append it with `-p`.
-- Set `GEMINI_CLI_HOME=/workdir` to ensure gemini uses `/workdir/.gemini`.
-- Always unset `GEMINI_CLI_IDE_SERVER_PORT`, `GEMINI_CLI_IDE_WORKSPACE_PATH`,
-  and `GEMINI_CLI_IDE_AUTH_TOKEN` before invoking gemini.
+- ファイル内容を stdin で gemini に渡す
+- 追加プロンプトがあれば `-p` で付与する
+- `GEMINI_CLI_HOME` を設定して `.gemini` を使用する
+- `GEMINI_CLI_IDE_SERVER_PORT` / `GEMINI_CLI_IDE_WORKSPACE_PATH` / `GEMINI_CLI_IDE_AUTH_TOKEN` を無効化する
