@@ -1,0 +1,7 @@
+prefix_rule(pattern=["git", "commit", "-m", "codex auto commit"], decision="allow")
+prefix_rule(pattern=["git", "add", "scripts/md2pptx/PROMPT.md"], decision="allow")
+prefix_rule(pattern=["python", "scripts/md2pptx/md2pptx.py", "scripts/md2pptx/sample.md", "scripts/md2pptx/sample.pptx"], decision="allow")
+prefix_rule(pattern=["/workdir/.codex/skills/gemini/scripts/gemini_prompt.sh", "/workdir/scripts/md2pptx/AIchat.md", "次に取るべき具体的な作業を箇条書きで教えてください"], decision="allow")
+prefix_rule(pattern=["/workdir/.codex/skills/gemini/scripts/gemini_prompt.sh", "/workdir/AIchat20260125.md"], decision="allow")
+prefix_rule(pattern=["env", "-u", "GEMINI_CLI_IDE_SERVER_PORT", "-u", "GEMINI_CLI_IDE_WORKSPACE_PATH", "-u", "GEMINI_CLI_IDE_AUTH_TOKEN", "gemini", "-p", "こんにちは"], decision="allow")
+prefix_rule(pattern=["/workdir/.codex/skills/gemini/scripts/gemini_prompt.sh", "README.md"], decision="allow")
