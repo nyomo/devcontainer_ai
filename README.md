@@ -51,4 +51,4 @@ codex --help
 ## トラブルシューティング
 - Rancher Desktop が起動していないとコンテナは起動できません
 - `Reopen in Container` が出ない場合は VS Code の Dev Containers 拡張が有効か確認してください
-
+- `gemini` を使う場合は事前に認証が必要です（初回実行時に案内に従ってブラウザで認証してください）
