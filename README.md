@@ -1,11 +1,11 @@
 # codexをDockerの中に閉じ込めた状態で使いたい
 
-このリポジトリは、Dockerコンテナ内に `codex`（`@openai/codex`）と開発に必要なツールをまとめた初心者向けの開発環境です。Windows / macOS を想定し、Docker環境には Rancher Desktop を使う前提で説明します。
+このリポジトリは、VS Code の Dev Containers 拡張で使う初心者向けの開発環境です。Docker 環境には Rancher Desktop を使う前提で説明します。
 
 ## できること
 - コンテナ内で `codex` と `gemini` をすぐ使える
 - Node.js 24 / Python / Git / ripgrep などを同梱
-- VS Code の Dev Containers で簡単に起動
+- VS Code からワンクリックで起動できる
 
 ## 前提
 - OS: Windows 11 / macOS
@@ -13,7 +13,7 @@
 - エディタ: Visual Studio Code
 - VS Code拡張: Dev Containers
 
-## Rancher Desktopの準備
+## Rancher Desktop の準備
 1. Rancher Desktop をインストールして起動
 2. `Preferences` で以下を確認
    - `Container Runtime`: `dockerd`（推奨）
@@ -43,31 +43,12 @@ code .
 codex --help
 ```
 
-## 使い方（docker compose を手動で使う）
-VS Code を使わずにコンテナを起動する場合は以下を実行します。
-
-```bash
-docker compose -f .devcontainer/docker-compose.yml up --build -d
-```
-
-コンテナに入るには以下を実行します。
-
-```bash
-docker exec -it vscode_devcontainer_ai bash
-```
-
-終了する場合は以下を実行します。
-
-```bash
-docker compose -f .devcontainer/docker-compose.yml down
-```
-
 ## 補足
 - コンテナの作業ディレクトリは `/workdir` です（ホストのリポジトリがマウントされます）
 - 初回起動時に `codex` と `gemini` がインストール済みです
-- 追加で必要なツールは `Dockerfile` を編集してください
+- 追加で必要なツールは `.devcontainer/Dockerfile` を編集してください
 
 ## トラブルシューティング
 - Rancher Desktop が起動していないとコンテナは起動できません
-- `docker compose` が使えない場合は Rancher Desktop の `dockerd` 設定を確認してください
+- `Reopen in Container` が出ない場合は VS Code の Dev Containers 拡張が有効か確認してください
 
