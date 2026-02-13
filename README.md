@@ -55,6 +55,15 @@ codex --help
 RUN apt-get update && apt-get install -y --no-install-recommends tree
 ```
 
+## 認証（codex / gemini）
+この環境では、`codex` と `gemini` は **APIキーを使わず**、初回実行時にブラウザで認証する方式です。
+
+1. VS Code のターミナルで `codex` または `gemini` を実行
+2. 表示された認証URLをブラウザで開く
+3. 認証後に表示されるコードをターミナルへ貼り付け
+
+以降は認証情報がコンテナ内に保存され、同じコンテナでは再認証は不要です。
+
 ## トラブルシューティング
 - Rancher Desktop が起動していないとコンテナは起動できません
 - `Reopen in Container` が出ない場合は VS Code の Dev Containers 拡張が有効か確認してください
