@@ -30,7 +30,7 @@ if [ -n "$prompt" ]; then
   args+=("-p" "$prompt")
 fi
 
-fixed_header=$'あなたと私の対話ログとして追記してください。\n形式は以下で統一:\n- 私: <ユーザー発話>\n- Gemini: <あなたの返答>\n- 根拠/要点: <結論の根拠や要点を箇条書きで>\n注意: 余計な説明は入れず、この形式の行だけを追記すること。'
+fixed_header=$'./MYDATA/gemini_.mdにあなたと私の対話ログとして追記してください。\n形式は以下で統一:\n- 私: <ユーザー発話>\n- Gemini: <あなたの返答>\n- 根拠/要点: <結論の根拠や要点を箇条書きで>\n注意: 余計な説明は入れず、この形式の行だけを追記すること。'
 file_body="$(cat "$file")"
 
 # Disable IDE integration to avoid connection errors or unexpected auth flows.
