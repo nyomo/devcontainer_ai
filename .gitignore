@@ -2,3 +2,4 @@ MYDATA/
 .DS_Store
 Thumbs.db
 .vscode/
+.gemini/trustedFolders.json

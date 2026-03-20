@@ -10,3 +10,4 @@ shell_snapshots/
 vendor_imports/
 *.sqlite*
 *.jsonl
+rules/default.rules
