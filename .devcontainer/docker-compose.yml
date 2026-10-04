@@ -1,9 +1,46 @@
 services:
   devcontainer:
     build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: vscode_devcontainer_ai
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
+    container_name: aiwork_base
     volumes:
-      - ..:/workdir
+      - ..:/workspace
     tty: true
+    command: sleep infinity
+    networks:
+      # インターネットに出ないネットワークのみ利用
+      - sandbox
+    environment:
+      # HTTP/HTTPS通信をSquidへ
+      HTTP_PROXY: http://proxy:3128
+      HTTPS_PROXY: http://proxy:3128
+      http_proxy: http://proxy:3128
+      https_proxy: http://proxy:3128
+
+      # ローカル通信までProxyへ送らない
+      NO_PROXY: localhost,127.0.0.1,::1
+      no_proxy: localhost,127.0.0.1,::1
+
+  proxy:
+    image: ubuntu/squid:6.6-24.04_beta
+
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro
+      - ./squid_allowlist.conf:/etc/squid/allowlist.conf:ro
+
+    networks:
+      - sandbox
+      - internet
+
+    restart: unless-stopped
+
+    # ホストへ3128を公開しない
+    # ports:
+    #   - "3128:3128"
+
+networks:
+  # sandboxはインターネットに出ない
+  sandbox:
+    internal: true
+  internet:
