@@ -35,7 +35,7 @@ RUN mkdir /home/appuser && \
 
 # install node.js v24
 # https://deb.nodesource.com/setup_24.x
-COPY ./nodesource-repo.gpg.key /tmp
+COPY .devcontainer/nodesource-repo.gpg.key /tmp
 RUN mkdir -p /usr/share/keyrings && \
     rm -f /usr/share/keyrings/nodesource.gpg && \
     rm -f /etc/apt/sources.list.d/nodesource.list && \
