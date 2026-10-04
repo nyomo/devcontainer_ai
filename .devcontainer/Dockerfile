@@ -60,8 +60,7 @@ USER appuser
 ENV PATH=/opt/node_modules/bin:${PATH}
 RUN npm config set prefix "/opt/node_modules" && \
     npm install -g @openai/codex@latest && \
-    ln -s /workdir/.codex /home/appuser/ && \
-    npm install -g @google/gemini-cli
+    ln -s /workdir/.codex /home/appuser/ 
 
 # Python
 RUN mkdir /home/appuser/python3 && \
