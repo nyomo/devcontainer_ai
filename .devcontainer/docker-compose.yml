@@ -6,6 +6,7 @@ services:
     container_name: aiwork_base
     volumes:
       - ..:/workspace
+      - ../.codex:/home/appuser/.codex
     tty: true
     command: sleep infinity
     networks:
