@@ -1,5 +1,10 @@
-MYDATA/
-.DS_Store
-Thumbs.db
-.vscode/
-.gemini/trustedFolders.json
+*
+!.devcontainer/
+!.devcontainer/AIwork
+!.gitignore
+!*.md
+!docker-compose.yml
+!devcontainer.json
+!Dockerfile
+!squid.conf
+!squid_allowlist.conf

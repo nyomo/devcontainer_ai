@@ -1,15 +1,16 @@
 # VS Code Dev Containers で使う codex & gemini 開発環境
 
-このリポジトリは、ローカル環境を汚さずに `codex` や `gemini` を試せる、初心者向けの Dev Containers 環境です。Docker 環境には Rancher Desktop を使う前提で説明します。
+このリポジトリは、ローカル環境を汚さずに `codex` を試せる、初心者向けの Dev Containers 環境です。Docker 環境には Rancher Desktop を使う前提で説明します。
+
+AIが動作するコンテナからインターネットに直接出られないようになっているため、思わぬところにAIがファイルをアップロードするなどの事故を防げる可能性が高いです。
 
 ## できること
-- コンテナ内で `codex` と `gemini` をすぐ使える
+- コンテナ内で `codex` をすぐ使える
 - Node.js 24 / Python / Git / ripgrep などを同梱
 - VS Code からワンクリックで起動できる
 
 ## 用語メモ
 - `codex`: OpenAI の AI コーディング CLI
-- `gemini`: Google の AI コーディング CLI
 
 ## 前提
 - OS: Windows 11 / macOS
@@ -46,7 +47,7 @@ codex --help
 
 ## 補足
 - コンテナの作業ディレクトリは `/workdir` です（ホストのリポジトリがマウントされます）
-- 初回起動時に `codex` と `gemini` がインストール済みです
+- 初回起動時に `codex` がインストール済みです
 - 追加で必要なツールは `.devcontainer/Dockerfile` を編集してください
 
 `.devcontainer/Dockerfile` に追記する例:
@@ -56,9 +57,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends tree
 ```
 
 ## 認証（codex / gemini）
-この環境では、`codex` と `gemini` は **APIキーを使わず**、初回実行時にブラウザで認証する方式です。
+この環境では、`codex` は **APIキーを使わず**、初回実行時にブラウザで認証する方式です。
 
-1. VS Code のターミナルで `codex` または `gemini` を実行
+1. VS Code のターミナルで `codex` を実行
 2. 表示された認証URLをブラウザで開く
 3. 認証後に表示されるコードをターミナルへ貼り付け
 
@@ -67,4 +68,3 @@ RUN apt-get update && apt-get install -y --no-install-recommends tree
 ## トラブルシューティング
 - Rancher Desktop が起動していないとコンテナは起動できません
 - `Reopen in Container` が出ない場合は VS Code の Dev Containers 拡張が有効か確認してください
-- `gemini` を使う場合は事前に認証が必要です（初回実行時に案内に従ってブラウザで認証してください）

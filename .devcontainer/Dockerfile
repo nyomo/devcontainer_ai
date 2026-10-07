@@ -1,4 +1,4 @@
-FROM debian:trixie
+FROM debian:trixie-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
@@ -35,7 +35,7 @@ RUN mkdir /home/appuser && \
 
 # install node.js v24
 # https://deb.nodesource.com/setup_24.x
-COPY ./nodesource-repo.gpg.key /tmp
+COPY .devcontainer/nodesource-repo.gpg.key /tmp
 RUN mkdir -p /usr/share/keyrings && \
     rm -f /usr/share/keyrings/nodesource.gpg && \
     rm -f /etc/apt/sources.list.d/nodesource.list && \
@@ -59,9 +59,7 @@ USER appuser
 # node.js
 ENV PATH=/opt/node_modules/bin:${PATH}
 RUN npm config set prefix "/opt/node_modules" && \
-    npm install -g @openai/codex@latest && \
-    ln -s /workdir/.codex /home/appuser/ && \
-    npm install -g @google/gemini-cli
+    npm install -g @openai/codex@latest 
 
 # Python
 RUN mkdir /home/appuser/python3 && \
